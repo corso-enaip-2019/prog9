@@ -82,7 +82,7 @@ namespace ConsAppScuola
         static void inserimentoStudente(string a)
         {
             int nStudenti;
-            string name;
+
 
             Console.WriteLine("Quanti studenti vuoi inserire?");
             Int32.TryParse(Console.ReadLine(), out nStudenti);
@@ -94,7 +94,11 @@ namespace ConsAppScuola
 
 
                 Console.WriteLine("inserisci il nome dello studente");
-                name = Console.ReadLine();
+
+                string nomeStud = Console.ReadLine();
+
+                Alunno alunno = new Alunno(nomeStud);
+
 
 
 
@@ -106,12 +110,12 @@ namespace ConsAppScuola
                 Console.WriteLine("inserisci la classe dello studente");
                 Int32.TryParse(Console.ReadLine(), out _class);
 
-               
-                while ( !(_class > 0 && _class < 6))
+
+                while (!(_class > 0 && _class < 6))
                 {
                     Console.WriteLine("Classe non valida. La classe deve essere compresa tra 1 e 5");
                     Console.WriteLine("Inserisci nuovamente la classe");
-                    _class=Convert.ToInt32(Console.ReadLine());
+                    _class = Convert.ToInt32(Console.ReadLine());
                 }
 
                 if (!_elementiClasse.ContainsKey(_class))
@@ -127,7 +131,21 @@ namespace ConsAppScuola
                 //List<string> studenti = _elementiClasse[_class];
                 //studenti.Add(name);
                 //}
-                _elementiClasse[_class].Add(name);
+                _elementiClasse[_class].Add(alunno._name);
+
+
+
+
+            }
+            foreach (KeyValuePair<int, List<string>> item in _elementiClasse)
+            {
+
+                foreach (string ite in item.Value)
+                {
+                    Console.WriteLine(item.Key + ite);
+                }
+                
+                
             }
         }
 
