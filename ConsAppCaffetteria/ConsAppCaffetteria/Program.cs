@@ -19,7 +19,7 @@ namespace ConsAppCaffetteria
             {
 
                 
-                Console.WriteLine(coffees);
+                Console.WriteLine(coffee.Description,coffee.Cost);
                 
             }
             Console.ReadLine();
