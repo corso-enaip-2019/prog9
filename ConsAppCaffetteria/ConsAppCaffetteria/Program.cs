@@ -12,16 +12,20 @@ namespace ConsAppCaffetteria
         static void Main(string[] args)
         {
             List<ICoffee> coffees = new List<ICoffee>();
-            coffees.Add(new Coffee(1.00, "Caffè"));
-            coffees.Add(new Coffee(1.10, "Mocaccino"));
+            coffees.Add(new Coffee(1.00D, " Caffè"));
+            coffees.Add(new Coffee(1.10D, " Mocaccino"));
 
             foreach(ICoffee coffee in coffees)
             {
-
                 
-                Console.WriteLine(coffee.Description,coffee.Cost);
+                Console.Write(String.Format("{0:0.00}", coffee.Cost));
+                Console.WriteLine(coffee.Description);
                 
             }
+            
+
+
+
             Console.ReadLine();
         }
     }

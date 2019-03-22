@@ -19,7 +19,7 @@ namespace ConsAppCaffetteria.Beverage
         }
 
 
-        public string Description { get {return $"{ _cost }{_name}" ; } } 
+        public string Description { get {return $"{_name}" ; } } 
 
         public double Cost { get { return _cost; } }
     }
