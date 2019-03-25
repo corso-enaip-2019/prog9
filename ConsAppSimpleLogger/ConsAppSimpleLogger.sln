@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsAppSimpleLogger", "ConsAppSimpleLogger\ConsAppSimpleLogger.csproj", "{BB27FED7-3CA0-48B0-B4AE-C20508C91FDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerTester", "LoggerTester\LoggerTester.csproj", "{F1F1B44F-9304-4A03-95B3-8DFDFA69727C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB27FED7-3CA0-48B0-B4AE-C20508C91FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB27FED7-3CA0-48B0-B4AE-C20508C91FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB27FED7-3CA0-48B0-B4AE-C20508C91FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB27FED7-3CA0-48B0-B4AE-C20508C91FDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1F1B44F-9304-4A03-95B3-8DFDFA69727C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F1B44F-9304-4A03-95B3-8DFDFA69727C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F1B44F-9304-4A03-95B3-8DFDFA69727C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F1B44F-9304-4A03-95B3-8DFDFA69727C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6EC3E8D-5697-4F38-9657-758821A795F3}
+	EndGlobalSection
+EndGlobal
