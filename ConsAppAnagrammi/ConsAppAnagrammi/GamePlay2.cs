@@ -8,11 +8,29 @@ namespace ConsAppAnagrammi
 {
     class GamePlay2 //: IGameplay
     {
+        readonly WordsRepository _wordsRepository;
+
         public string Description => "Sfida";
 
-        public void Run()
+        public GamePlay2(WordsRepository wordsRepository)
         {
-            throw new NotImplementedException();
+            _wordsRepository = wordsRepository;
         }
+
+        public void Run(IUiHandle uiHandle)
+        {
+            string parolaInserita = uiHandle.AskForString("Inserisci una parola");
+
+
+
+        }
+
+        //public string RndString(MemoryDictionaryLoader memoryDictionaryLoader)
+        //{
+        //    Random rnd = new Random();
+        //    rnd.Next();
+
+
+        //}
     }
 }

@@ -8,6 +8,7 @@ namespace ConsAppAnagrammi
 {
     public interface IUiHandle
     {
+
         string AskForString(string message);
 
         void WriteMessage(string message);
