@@ -28,7 +28,9 @@ namespace ConsAppAnagrammi
         //public string RndString(MemoryDictionaryLoader memoryDictionaryLoader)
         //{
         //    Random rnd = new Random();
-        //    rnd.Next();
+
+        //    int n= rnd.Next(0,);
+
 
 
         //}
