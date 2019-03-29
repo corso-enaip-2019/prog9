@@ -9,7 +9,7 @@ namespace ConsAppEsercizio
 
             //Print10Prime();
 
-
+            Console.WriteLine("€");
             PrintPrimeForN();
 
             Console.Read();
