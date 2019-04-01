@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsAppImperative2", "ConsAppImperative2\ConsAppImperative2.csproj", "{44C7BB2F-5C4E-4F8C-B531-1D13EFD2E374}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44C7BB2F-5C4E-4F8C-B531-1D13EFD2E374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C7BB2F-5C4E-4F8C-B531-1D13EFD2E374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C7BB2F-5C4E-4F8C-B531-1D13EFD2E374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C7BB2F-5C4E-4F8C-B531-1D13EFD2E374}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DD32DD4-AA1A-46C3-9E0F-9B196464F1F3}
+	EndGlobalSection
+EndGlobal
