@@ -18,7 +18,7 @@ namespace EsercizioFilter
                 Console.WriteLine(item);
             }
 
-            Console.WriteLine();
+            Console.WriteLine("____________________");
 
 
             foreach (var item in Ribalta(Mock))
@@ -36,7 +36,7 @@ namespace EsercizioFilter
 
             }
 
-            Console.WriteLine();
+            Console.WriteLine("___________________________________");
 
             foreach (var item in Mock)
             {
@@ -116,7 +116,7 @@ namespace EsercizioFilter
         public static string FilterA(string a)
         {
             string Riporto = null;
-            if (a.IndexOf("A", 0) != -1)
+            if (a.IndexOf("A", 0) != -1|| a.IndexOf("a",0) != -1)
             {
                 Riporto = a;
             }
