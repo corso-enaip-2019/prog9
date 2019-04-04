@@ -32,7 +32,7 @@ namespace EsercizioFilter
             {
 
 
-                Console.WriteLine($"La parola è lunga {item} caratteri");
+                Console.WriteLine($"La parola {Mock.Count} è lunga {item} caratteri");
 
             }
 
