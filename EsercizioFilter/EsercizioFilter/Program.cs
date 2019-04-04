@@ -116,7 +116,7 @@ namespace EsercizioFilter
         public static string FilterA(string a)
         {
             string Riporto = null;
-            if (a.IndexOf("A", 0) != -1|| a.IndexOf("a",0) != -1)
+            if (a.IndexOf("A") == 0|| a.IndexOf("a") == 0)
             {
                 Riporto = a;
             }
