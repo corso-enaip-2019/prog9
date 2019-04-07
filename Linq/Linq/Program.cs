@@ -18,14 +18,9 @@ namespace Linq
             {
                 Console.WriteLine($"{item.Model} {item.Version} {item.Cost} {item.Color}");
             }
-            
-
             Console.ReadLine();
-
         }
-
-
-
+        
         static List<Smartphone> CreateSmartphoneList()
         {
             return new List<Smartphone>
@@ -33,9 +28,6 @@ namespace Linq
                  new Smartphone("Samsung","s7",250,"Blue"),
                  new Smartphone("IPhone","x",1000,"Black"),
                  new Smartphone("Huawei","p20",200,"Green")
-
-
-
             };
         }
 
@@ -50,8 +42,6 @@ namespace Linq
                     output.Add(item);
                 }
             }
-
-
             return output;
         }
 
@@ -96,12 +86,7 @@ namespace Linq
     {
         public bool Filter(Smartphone s)
         {
-            
             return s.Color == "Black";
-            
         }
-
     }
-
-    
 }
