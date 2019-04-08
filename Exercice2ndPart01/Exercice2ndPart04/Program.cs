@@ -35,7 +35,7 @@ namespace Exercice2ndPart04
         {
             List<double> primeList = new List<double>();
 
-            for (int i = 2; i < 1000000; i++)
+            for (int i = 2; i < 1000; i++)
             {
                 if (IsPrime(i))
                 {
