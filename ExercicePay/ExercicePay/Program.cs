@@ -12,159 +12,251 @@ namespace ExercicePay
         static void Main(string[] args)
         {
 
-            DateTime dt = new DateTime(2019, 01, 31);
+            var employees = CreateMockEmployees();
 
-            List<Employee> employees = employeesList();
-            foreach (var item in employees)
+            var paycheckRecords = new List<PaycheckRecord>();
+
+            var date = new DateTime(2019, 8, 31);
+
+            foreach (var e in employees)
             {
-                if (item.IsPayDay(dt))
+                if (e.IsPayDay(date))
                 {
-                    Console.WriteLine($"{item.Id} {item.Name}");
-                    item.CalcolatePay();
-                    Console.WriteLine($"{dt}");
+                    var paycheck = e.CalculatePay(date);
+                    var record = new PaycheckRecord(e.Id, DateTime.Today, paycheck);
+                    paycheckRecords.Add(record);
                 }
             }
 
-
-
-
-
-
             Console.Read();
-
-            /*
-            lista di impiegati creata come mock
-            per ogni impiegato della lista
-               se è il suo giorno di paga
-                   calcola la sua paga
-                   crea un record con l'id dell'impiegato, la paga, e la data di oggi
-                   aggiungi alla lista di record 
-             */
         }
 
-        
-
-        public static List<Employee> employeesList()
+        static List<Employee> CreateMockEmployees()
         {
-            return new List<Employee>
+            var fs = new FixedSalary
             {
-                new FixedSalary{Id = 01, Name = "Stefano Aspire"},
-                new FixedSalary{Id = 03, Name = "Joseph Joestar"},
-                new HourlyPay{Id = 02,Name = "Giacomo Leopardi"},
-                new HourlyPay{Id = 07,Name = "Jean Claude Van Damme"},
-                new HourlyPay{Id = 05, Name ="Sasha Grey"},
-                new CommissionPay{Id = 04, Name ="Tom Cruise"},
+                Id = 1,
+                Name = "Mario Rossi",
+                FPay = 1500.00M,
             };
+
+            var hp = new HourlyPay
+            {
+                Id = 2,
+                Name = "Luigi Neri",
+                HourlyRate = 20,
+            };
+            hp.AddWorkedHours(2019, 8, 31, 4);
+            hp.AddWorkedHours(2019, 8, 30, 6);
+            hp.AddWorkedHours(2019, 8, 29, 2);
+            hp.AddWorkedHours(2019, 8, 14, 5);
+
+            var cp = new CommissionPay
+            {
+                Id = 3,
+                Name = "Anna Gialli",
+                Percentage = 2,
+            };
+
+            cp.AddCommission(2019, 8, 31, 2000);
+            cp.AddCommission(2019, 8, 31, 1500.50M);
+            cp.AddCommission(2019, 8, 7, 3000);
+
+            return new List<Employee> { fs, hp, cp };
         }
+
+
+
+        /*
+        lista di impiegati creata come mock
+        per ogni impiegato della lista
+           se è il suo giorno di paga
+               calcola la sua paga
+               crea un record con l'id dell'impiegato, la paga, e la data di oggi
+               aggiungi alla lista di record 
+         */
     }
 
-    abstract class Employee
+
+
+    //public static List<Employee> employeesList()
+    //{
+    //    return new List<Employee>
+    //    {
+    //        new FixedSalary{Id = 01, Name = "Stefano Aspire"},
+    //        new FixedSalary{Id = 03, Name = "Joseph Joestar"},
+    //        new HourlyPay{Id = 02,Name = "Giacomo Leopardi"},
+    //        new HourlyPay{Id = 07,Name = "Jean Claude Van Damme"},
+    //        new HourlyPay{Id = 05, Name ="Sasha Grey"},
+    //        new CommissionPay{Id = 04, Name ="Tom Cruise"},
+    //    };
+    //}
+
+    class PaycheckRecord
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal TotalPayment { get; set; }
-        public abstract bool IsPayDay(DateTime date);
-        public abstract void CalcolatePay();
-    }
+        public PaycheckRecord() { }
 
-    class FixedSalary : Employee
+        public PaycheckRecord(int employeeId, DateTime date, decimal paycheck)
+        {
+            EmployeeId = employeeId;
+            Date = date;
+            Paycheck = paycheck;
+        }
+
+        public int EmployeeId { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Paycheck { get; set; }
+    }
+}
+
+abstract class Employee
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal TotalPayment { get; set; }
+    public abstract bool IsPayDay(DateTime date);
+    public abstract decimal CalculatePay(DateTime date);
+}
+
+class FixedSalary : Employee
+{
+    public decimal FPay { get; set; }
+
+    public override bool IsPayDay(DateTime date)
     {
-        public decimal FPay = 1500;
+        return (date == GetLastDayOfMonth());
 
-        public override bool IsPayDay(DateTime date)
-        {
-            if (date == GetLastDayOfMonth())
-                return true;
-            else
-                return false;
-        }
-
-        public override void CalcolatePay()
-        {
-            Console.WriteLine( FPay ); 
-        }
-
-        public static DateTime GetLastDayOfMonth()
-        {
-            DateTime dt = new DateTime();
-            dt = dt.AddMonths(1);
-            dt = dt.AddDays(-dt.Day);
-
-            return dt;
-        }
     }
 
-    class HourlyPay : Employee
+    public override decimal CalculatePay(DateTime date)
     {
-        public decimal HPay = 0;
-        public decimal oreLavorate { get; set; }
-
-        public override bool IsPayDay(DateTime date)
-        {
-            if (date.DayOfWeek == DayOfWeek.Saturday)
-                return true;
-            else
-                return false;
-        }
-
-        public override void CalcolatePay()
-        {
-            HPay = oreLavorate * 10;
-
-            Console.WriteLine( HPay ); 
-        }
+        return FPay;
     }
+
+    public static DateTime GetLastDayOfMonth()
+    {
+        DateTime dt = new DateTime(2019, 01, 20);
+        dt = dt.AddMonths(1);
+        dt = dt.AddDays(-dt.Day);
+
+        return dt;
+    }
+}
+
+class HourlyPay : Employee
+{
+    public HourlyPay()
+    {
+        _WorkedTimes = new List<WorkedTime>();
+    }
+
+    public IEnumerable<WorkedTime> WorkedTimes
+    { get { return _WorkedTimes; } }
+
+    private readonly List<WorkedTime> _WorkedTimes;
+
+    public decimal HourlyRate { get; set; }
+
+    public void AddWorkedHours(int year, int month, int day, int workedHours)
+    {
+        _WorkedTimes.Add(new WorkedTime(year, month, day, workedHours));
+    }
+
+
+    public override bool IsPayDay(DateTime date)
+    {
+        return (date.DayOfWeek == DayOfWeek.Saturday);
+
+    }
+
+    public override decimal CalculatePay(DateTime date)
+    {
+        //var now = DateTime.Now.AddDays(1).Date;
+        var now = DateTime.Today.AddDays(1);
+
+        var start = now.AddDays(-7);
+
+        var workedHours = WorkedTimes
+            .Where(wt => start < wt.Date && wt.Date < now)
+            .Sum(wt => wt.Hours);
+
+        return workedHours * HourlyRate;
+    }
+
+    public struct WorkedTime
+    {
+        public WorkedTime(int year, int month, int day, int hours)
+        {
+            Date = new DateTime(year, month, day);
+            Hours = hours;
+        }
+        public WorkedTime(DateTime date, int hours)
+        {
+            Date = date;
+            Hours = hours;
+        }
+
+
+        public DateTime Date { get; }
+        public int Hours { get; }
+    }
+}
+
 
     class CommissionPay : Employee
     {
-        public decimal CommPay = 0;
-      
+        public int Percentage { get; set; }
+
+        public struct SoldCommission
+        {
+            public SoldCommission(int year, int month, int day, decimal amount)
+                : this(new DateTime(year, month, day), amount)
+            {
+            }
+
+            public SoldCommission(DateTime date, decimal amount)
+            {
+                Date = date;
+                CommPay = amount;
+            }
+
+            public decimal CommPay { get; }
+            public DateTime Date { get; }
+        }
+
         public override bool IsPayDay(DateTime date)
         {
             return true;
         }
 
-        public static List<Record> records()
+        public CommissionPay()
         {
-            return new List<Record>
-            {
-                new Record{Vendita=353.6m ,  Date = new DateTime(2019,1,10)},
-                new Record{Vendita=1300m ,  Date = new DateTime(2019,1,11)},
-                new Record{Vendita=1560.30m ,  Date = new DateTime(2019,1,11)},
-                new Record{Vendita=1200m ,  Date = new DateTime(2019,1,15)},
-                new Record{Vendita=750.5m ,  Date = new DateTime(2019,1,31)},
-                new Record{Vendita=800.7m ,  Date = new DateTime(2019,1,31)},
-                new Record{Vendita=400m ,  Date = new DateTime(2019,1,20)},
-            };
+            _SoldCommissions = new List<SoldCommission>();
         }
 
-        public override void CalcolatePay()
+        public IEnumerable<SoldCommission> SoldCommissions
         {
+            get { return _SoldCommissions; }
+        }
+        private List<SoldCommission> _SoldCommissions;
+
+        public void AddCommission(int year, int month, int day, decimal amount)
+        {
+            _SoldCommissions.Add(new SoldCommission(year, month, day, amount));
         }
 
-        //public override void CalcolatePay(List<Record> list, DateTime date)
-        //{
+        public override decimal CalculatePay(DateTime date)
+        {
+            var soldAmount = _SoldCommissions
+                .Where(sc => sc.Date == date.Date)
+                .Sum(sc => sc.CommPay);
 
-        //    decimal DailyPay = 0;
-        //    foreach (var item in list)
-        //    {
-        //        if (date == item.Date)
-        //        {
-        //            DailyPay += (item.Vendita / 100) * 10;
-        //        }
+            return soldAmount * Percentage / 100;
+        }
 
-        //    }
 
-        //    Console.WriteLine(DailyPay); 
-        //}
+
     }
-
-    class Record
-    {
-        public decimal Vendita { get; set; }
-        public DateTime Date { get; set; }
-    }
-}
 /*
      * Esercizio: implementare un sistema di Payroll.
      * Un trigger chiama l'applicazione ogni giorno alle 23:59.
