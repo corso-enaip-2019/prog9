@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86BE9DD5-D4BE-4CA5-A14B-F3C9440EA17C}</ProjectGuid>
+    <ProjectGuid>{365EFB1E-AF1D-47D8-9AE3-86C545EA334D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Exercice2ndPart05</RootNamespace>
-    <AssemblyName>Exercice2ndPart05</AssemblyName>
+    <RootNamespace>Exercice2ndPart06</RootNamespace>
+    <AssemblyName>Exercice2ndPart06</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,11 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Car.cs" />
-    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Smartphone.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
