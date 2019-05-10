@@ -13,10 +13,7 @@ namespace WpfApp02
             : base(connectionString)
         { }
 
-       
-
         public DbSet<Employee> Employees { get; set; }
-
 
     }
 }
