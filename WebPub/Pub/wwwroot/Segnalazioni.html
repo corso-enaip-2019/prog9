@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pub</title>
+</head>
+<body>
+    <main>
+        <h2>Scrivici la tua segnalazione</h2>
+        <h3>Ti risponderemo il prima possibile</h3>
+        <form method="GET" action="message-sent.html">
+            <label>Nome</label>
+            <input name="name" type="text"/> <br/>
+
+            <label>Cognome</label>
+            <input name="cognome" type="text"/> <br/>
+
+            <label>Data:</label>
+            <input name="date_of_meal" type="date"/> <br/>
+
+            <label>Sei un nostro cliente abituale?</label> <br/>
+            <input name="usual_customer?" type="radio" value="yes" checked/> Si <br/>
+            <input name="usual_customer?" type="radio" value="no" /> No <br/>
+
+            <textarea name="message" row="5" cols="50"></textarea> <br/>
+
+            <label>Voto al servizio:</label>
+            <input name="rating" type="number" min="0" max="10" step="1" value="5"/> <br/>
+
+            <input type="submit" value="Invia" />
+        </form>
+    </main>
+</body>
+</html>
