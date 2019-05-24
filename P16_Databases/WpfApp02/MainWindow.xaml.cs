@@ -21,19 +21,18 @@ namespace WpfApp02
     {
         public const string CONNECTION_STRING = @"Server=TRISRV10\SQLEXPRESS;Database=CS2019_Levak_01;Trusted_Connection=True;";
 
+        private MainDbContext _ctx;
 
-        
         public MainWindow()
         {
-                InitializeComponent();
+            InitializeComponent();
+
+            _ctx = new MainDbContext(CONNECTION_STRING);
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
-            using (var ctx = new MainDbContext(CONNECTION_STRING))
-            {
-                MainGrid.ItemsSource = ctx.Employees.ToList();
-            }
+            LoadEmployees();
         }
 
         private void NewButton_Click(object sender, RoutedEventArgs e)
@@ -43,16 +42,10 @@ namespace WpfApp02
             if (detailWindow.ShowDialog() != true)
                 return;
 
-            var newEmployee = detailWindow.Model;
+            _ctx.Employees.Add(detailWindow.Model);
+            _ctx.SaveChanges();
 
-            using (var ctx = new MainDbContext(CONNECTION_STRING))
-            {
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(newEmployee).State}; Id: {newEmployee.Id}");
-                ctx.Employees.Add(newEmployee);
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(newEmployee).State}; Id: {newEmployee.Id}");
-                ctx.SaveChanges();
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(newEmployee).State}; Id: {newEmployee.Id}");
-            }
+            LoadEmployees();
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -65,25 +58,9 @@ namespace WpfApp02
             if (detailWindow.ShowDialog() != true)
                 return;
 
-            var updated = detailWindow.Model;
+            _ctx.SaveChanges();
 
-            using (var ctx = new MainDbContext(CONNECTION_STRING))
-            {
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(updated).State}; Id: {updated.Id}");
-
-                // avendo creato un nuovo DbContext,
-                // lui non ha registrato lo stato di updated,
-                // quindi devo a mano configurarlo
-                // perché consideri 'updated' come un model già creato e modificato:
-                ctx.Employees.Attach(updated);
-                ctx.Entry(updated).State = EntityState.Modified;
-
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(updated).State}; Id: {updated.Id}");
-
-                ctx.SaveChanges();
-
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(updated).State}; Id: {updated.Id}");
-            }
+            LoadEmployees();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -91,24 +68,17 @@ namespace WpfApp02
             if (MainGrid.SelectedItem == null)
                 return;
 
-            var detailWindow = new EmployeeDetailWindow(MainGrid.SelectedItem as Employee);
+            var deleted = MainGrid.SelectedItem as Employee;
 
-            var deleted = detailWindow.Model;
+            _ctx.Employees.Remove(deleted);
+            _ctx.SaveChanges();
 
-            using (var ctx = new MainDbContext(CONNECTION_STRING))
-            {
-                ctx.Employees.Attach(deleted);
-                ctx.Entry(deleted).State = EntityState.Deleted;
+            LoadEmployees();
+        }
 
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(deleted).State}; Id: {deleted.Id}");
-
-                ctx.SaveChanges();
-
-                Debug.WriteLine($"stato di Employee: {ctx.Entry(deleted).State}; Id: {deleted.Id}");
-
-
-            }
-
+        private void LoadEmployees()
+        {
+            MainGrid.ItemsSource = _ctx.Employees.ToList();
         }
     }
 }
