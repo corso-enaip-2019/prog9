@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html style="background-color:cornflowerblue;">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mia prima app html</title>
+
+        <style>
+            body{
+                max-width:700px;
+                margin: 0 auto;
+                background-color: white;
+                font-family: 'Calibri';
+                box-sizing: border-box;
+                }
+
+            h1{
+                font-family:'Tahoma';
+                margin-bottom: 0;
+                margin-top: 8px;
+                text-align: center;
+              }
+
+            header h2{
+                        font-weight: normal;
+                        font-size:1em;
+                        margin-top:0;
+                        text-align:center;
+                     }
+
+            nav {
+                background-color:darkviolet
+            }
+
+            nav img{
+                width: 30px;
+                height: 30px;
+            }
+
+            ul {
+                padding: 0;
+                margin:0;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                list-style-type: none;
+                }
+
+            li {
+                flex-grow: 1;
+                /*display: inline-block;
+                width:33%;*/
+                box-sizing: border-box;
+                padding: 0;
+                margin:0;
+                text-align: center;
+               }
+            li:nth-child(1){
+                flex-grow: 0;
+            }
+
+            li a{
+                 color: ivory;
+                 display: block;
+                 padding: 5px 20px;
+                 margin: 0;
+                }
+
+            main {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-evenly;
+                background-color: #FAFAFA;
+                margin-top: 20px;
+                }
+
+            main > div {
+                margin-left: 10px;
+                max-width: 200px;
+                border: 1px solid #CCC;
+                background-color: white;
+                flex-grow: 1;
+                padding: 10px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                border-radius: 5px;
+            }
+
+            main > div:nth-child(1){
+                margin-left: 0;
+            }
+
+            main div img {
+                width: 180px;
+                height: 180 px;
+            }
+
+            main div p{
+                text-align: justify;
+            }
+          
+        </style>
+    </head>
+    <div style="text-align: center">
+        <img alt="cover" src="/Cover-FVG.gif" />
+    </div>
+    <body>
+        <header >
+            
+            <!-- <img src="https://www.quotidiano.net/referendum/costituzionale-2016/_static/mappe/regioni-blu-con-province/friuli-venezia-giulia.gif"/> -->
+            <h1>Meteo FVG</h1>
+            <h2>Pagina Dedicata al meteo in Friuli Venezia Giulia</h2>
+            
+            <nav>
+                <ul>
+                    <li>
+                            <a href="index.html"><img src="/sun.jpg" /></a>
+                    </li>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href=about-us.html">About</a>
+                    </li>
+                    <li>
+                        <a href="contact-us.html">Contact us</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+                <div>
+                        <img src="man1.png" />
+                        <h2>Tizio</h2>
+                        <p>Tizio ha fondato l'azienda nel 2006, ma essendo sempre ansioso ha assunto altri due collaboratori</p>
+                    </div>
+        
+                    <div>
+                        <img src="man2.png" />
+                        <h2>Caio</h2>
+                        <p>Caio è stato assunto nel 2010, ma era triste prima ed è rimasto triste dopo,
+                            soprattutto ogni volte che le previsioni non coincidono con quello che 
+                            succede in realtà nel meteo</p>
+                    </div>
+        
+                    <div>
+                        <img src="man3.png" />
+                        <h2>Sempronio</h2>
+                        <p>Sempronio è stato assunto nel 2017. E' malvagio. Punto.</p>
+                    </div>
+        </main>
+        <footer>
+            © Corso Enaip 2019
+        </footer>
+    </body>
+</html>
