@@ -1,17 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style="background-color:floralwhite;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tris</title>
     <style>
+        body {
+            width: 700px ;
+            height: 500px ;
+            margin: 0 auto;
+            background-color: dodgerblue;
+        }
+
+        main, header {
+            margin: 20px;
+        }
+
+        #grid {
+            margin: auto;
+            background-color: black;
+            height: 156px;
+            width:156px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color:whitesmoke;
+            margin:1px;
+        }
+
+        .cell:hover {
+            background-color:yellow;
+
+        }
+        .CPU-cell{
+            background-image:url(Cerchio.png);
+        }
+
+        .clicked-cell, .clicked-cell:hover{
+            background-image:url(Ics.png);
+        }
+
+        div {
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #btn-container {
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+        }
 
     </style>
 </head>
 <body>
     <header>
         <h1>Tris4P00r</h1>
+        <h3>Player : X</h3>
+        <h3>CPU : O</h3>
     </header>
     <main>
         <div id="grid">
@@ -20,14 +75,153 @@
         
     </main>
         <script>
+        //      let mainGrid = document.getElementById('grid');
+        //  for(let i = 0; i < 9; i++) {
+        //      var createdDiv = document.createElement('div');
+        //      createdDiv.classList.add('cell');
+        //      createdDiv.onclick = function(ev) {
+        //          //inline style:
+        //          // ev.target.style.backgroundColor = 'black'
+        //          // style through classes:
+        //          ev.target.classList.add('clicked-cell')
+        //          // I can stop an event from being propagated
+        //          // to the outer containers:
+        //          // ev.stopPropagation();
+        //      }
+        //      mainGrid.appendChild(createdDiv);
+        //  }
+        //  mainGrid.onclick = function(ev) {
+        //  }
+
+
+        const PLAYER1 = "O";
+        const PLAYER2 = "X";
+        const EMPTY_CELL = " ";
+
+        function initializeGrid() {
+            let grid = []
+            // for (let i = 0; i < 9; i++) {
+            //     grid[i] = " ";
+            // }
+            // return grid;
             let mainGrid = document.getElementById('grid');
-            for(let i = 0; i < 900; i++) {
-            var createdDiv = document.createElement('div');
-            createdDiv.classList.add('cell');
+            for(let i = 0; i < 9; i++) {
+             var createdDiv = document.createElement('div');
+             createdDiv.classList.add('cell') ;
+             createdDiv.classList.add(`${i}`);
+            grid[i] = createdDiv;
+             createdDiv.onclick = function(ev) {
+                 //inline style:
+                 // ev.target.style.backgroundColor = 'black'
+                 // style through classes:
+                 ev.target.classList.add('clicked-cell')
+                 // I can stop an event from being propagated
+                 // to the outer containers:
+                 // ev.stopPropagation();
+                 };
+
+                 createdDiv.ev = function(ev) {
+                 //inline style:
+                 // ev.target.style.backgroundColor = 'black'
+                 // style through classes:
+                 ev.target.classList.add('CPU-cell')
+                 // I can stop an event from being propagated
+                 // to the outer containers:
+                 // ev.stopPropagation();
+                 }
+             
+             mainGrid.appendChild(createdDiv);
+             }
+             mainGrid.onclick = function(ev) {
+             }
+             return grid;
             }
 
+        function switchPlayer(p) {
+            if (p == PLAYER1) {
+                return PLAYER2;
+            } else if (p == PLAYER2) {
+                return PLAYER1;
+            } else {
+                throw new Error("Unknown player");
+            }
+        }
 
+        // function printGrid(grid) {
+        //     var message =
+        // ` ${grid[0]} │ ${grid[1]} │ ${grid[2]}
+        // ───┼───┼───
+        //  ${grid[3]} │ ${grid[4]} │ ${grid[5]}
+        // ───┼───┼───
+        //  ${grid[6]} │ ${grid[7]} │ ${grid[8]} 
+        // `;
+        //     console.log(message);
+        // }
+
+        function getRandomInt() {
+            return Math.floor(Math.random() * 9);
+        }
+
+        function chooseCellOnGrid(grid, player) {
+            do {
+                var choice = getRandomInt();
+            }
+            while(grid[choice] != EMPTY_CELL);
+            grid[choice] = target.classList.add('CPU-cell')
+        }
+
+        function trioPresent(grid) {
+            
+            var possibilities = [
+                [ 0, 1, 2 ],
+                [ 3, 4, 5 ],
+                [ 6, 7, 8 ],
+                [ 0, 3, 6 ],
+                [ 1, 4, 7 ],
+                [ 2, 5, 8 ],
+                [ 0, 4, 8 ],
+                [ 2, 4, 6 ]
+            ]
+            
+            for (let trio of possibilities) {
+                if (grid[trio[0]] != EMPTY_CELL &&
+                    grid[trio[0]] == grid[trio[1]] &&
+                    grid[trio[1]] == grid[trio[2]]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function noMoreSpace(grid) {
+            for (let cell of grid) {
+                if (cell == EMPTY_CELL) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function playGame() {
+            var player = PLAYER1;
+            var grid = initializeGrid();
+        
+        //   while(true) {
+            //      chooseCellOnGrid(grid, PLAYER2);
+                //  if (trioPresent(grid)) {
+                //      console.log(`player ${player} won!`);
+                //      break;
+                //  } else if (noMoreSpace(grid)) {
+                //      console.log("match even!");
+                //      break;
+                //  }
+            //      player = switchPlayer(player);
+            // }
+
+        }
+        playGame();
+        
         </script>    
-    
+    <h1></h1>
 </body>
 </html>
