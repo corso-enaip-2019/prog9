@@ -96,8 +96,8 @@
 
         const PLAYER1 = "O";
         const PLAYER2 = "X";
-        const EMPTY_CELL = " ";
-
+        
+        
         function initializeGrid() {
             let grid = []
             // for (let i = 0; i < 9; i++) {
@@ -109,7 +109,9 @@
              var createdDiv = document.createElement('div');
              createdDiv.classList.add('cell') ;
              createdDiv.classList.add(`${i}`);
-            grid[i] = createdDiv;
+             grid[i] = createdDiv;
+
+
              createdDiv.onclick = function(ev) {
                  //inline style:
                  // ev.target.style.backgroundColor = 'black'
@@ -118,17 +120,8 @@
                  // I can stop an event from being propagated
                  // to the outer containers:
                  // ev.stopPropagation();
-                 };
-
-                 createdDiv.ev = function(ev) {
-                 //inline style:
-                 // ev.target.style.backgroundColor = 'black'
-                 // style through classes:
-                 ev.target.classList.add('CPU-cell')
-                 // I can stop an event from being propagated
-                 // to the outer containers:
-                 // ev.stopPropagation();
-                 }
+                 
+                }
              
              mainGrid.appendChild(createdDiv);
              }
@@ -147,17 +140,6 @@
             }
         }
 
-        // function printGrid(grid) {
-        //     var message =
-        // ` ${grid[0]} │ ${grid[1]} │ ${grid[2]}
-        // ───┼───┼───
-        //  ${grid[3]} │ ${grid[4]} │ ${grid[5]}
-        // ───┼───┼───
-        //  ${grid[6]} │ ${grid[7]} │ ${grid[8]} 
-        // `;
-        //     console.log(message);
-        // }
-
         function getRandomInt() {
             return Math.floor(Math.random() * 9);
         }
@@ -166,8 +148,8 @@
             do {
                 var choice = getRandomInt();
             }
-            while(grid[choice] != EMPTY_CELL);
-            grid[choice] = target.classList.add('CPU-cell')
+            while(grid[choice] != document.getElementById('clicked-cell') && document.getElementById('CPU-cell') );
+            grid[choice] = classList.ev.target.classList.add('CPU-cell')
         }
 
         function trioPresent(grid) {
@@ -195,7 +177,7 @@
 
         function noMoreSpace(grid) {
             for (let cell of grid) {
-                if (cell == EMPTY_CELL) {
+                if (cell != document.getElementById('clicked-cell') && document.getElementById('CPU-cell') ) {
                     return false;
                 }
             }
@@ -206,17 +188,17 @@
             var player = PLAYER1;
             var grid = initializeGrid();
         
-        //   while(true) {
-            //      chooseCellOnGrid(grid, PLAYER2);
-                //  if (trioPresent(grid)) {
-                //      console.log(`player ${player} won!`);
-                //      break;
-                //  } else if (noMoreSpace(grid)) {
-                //      console.log("match even!");
-                //      break;
-                //  }
-            //      player = switchPlayer(player);
-            // }
+          while(true) {
+                  chooseCellOnGrid(grid, player);
+                  if (trioPresent(grid)) {
+                      console.log(`player ${player} won!`);
+                      break;
+                  } else if (noMoreSpace(grid)) {
+                      console.log("match even!");
+                      break;
+                  }
+                  player = switchPlayer(player);
+             }
 
         }
         playGame();
