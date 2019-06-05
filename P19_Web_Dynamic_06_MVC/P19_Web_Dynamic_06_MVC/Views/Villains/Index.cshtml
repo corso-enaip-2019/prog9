@@ -1,0 +1,58 @@
+﻿@model List<VillainRowViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+
+    String color = "black";
+    if (TempData["MessageSeverity"] != null)
+    {
+        var severity = (MessageSeverity)TempData["MessageSeverity"];
+        switch (severity)
+        {
+            case MessageSeverity.Ok: color = "green"; break;
+            case MessageSeverity.Warning: color = "orange"; break;
+            case MessageSeverity.Error: color = "red"; break;
+        }
+    }
+
+}
+
+<h2>Villains list</h2>
+
+@if (ViewData["Initial message"] != null)
+{
+    <h3>@ViewData["Initial message"]</h3>
+}
+
+@if(TempData["MessageText"] != null)
+{
+    <p style="color: @color;">@TempData["MessageText"]</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>kills</th>
+            <th>kidnapped</th>
+            <th>characteristics</th>
+            <th>nemesis</th>
+            <th colspan="2">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var villain in Model)
+        {
+        <tr>
+            <td>@villain.VillainName</td>
+            <td>@villain.KilledPeople</td>
+            <td>@villain.KidnappedPeople</td>
+            <td>@villain.Characteristics</td>
+            <td>@villain.Nemesis</td>
+            <td><a asp-controller="Villains" asp-action="Edit" asp-route-id="@villain.Id">edit</a></td>
+            <td><a asp-controller="Villains" asp-action="Delete" asp-route-id="@villain.Id" class="text-danger">delete</a></td>
+        </tr>
+        }
+
+    </tbody>
+</table>
