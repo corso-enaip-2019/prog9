@@ -14,10 +14,9 @@
             case MessageSeverity.Error: color = "red"; break;
         }
     }
-
 }
 
-<h2>Superhero list</h2>
+<h2 class="text-center">Superhero list</h2>
 
 @if (ViewData["Initial message"] != null)
 {
@@ -49,6 +48,5 @@
                 <td><a asp-controller="Superheroes" asp-action="Delete" asp-route-id="@superhero.Id" class="text-danger">delete</a></td>
             </tr>
         }
-
     </tbody>
 </table>

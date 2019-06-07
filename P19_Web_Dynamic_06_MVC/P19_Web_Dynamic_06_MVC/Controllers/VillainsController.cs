@@ -15,7 +15,7 @@ namespace P19_Web_Dynamic_06_MVC.Controllers
         {
             if (_firstTime)
             {
-                ViewData["InitialMessage"] = "Welcome to the list of all villains!";
+                ViewData["InitialMessage"] = "Welcome to the villains management!";
                 _firstTime = false;
             }
             var vms = Repository.Instance.GetAllVillains();
@@ -25,6 +25,9 @@ namespace P19_Web_Dynamic_06_MVC.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var superheroes = Repository.Instance.GetAllSuperheroNames();
+            ViewData["superheroes"] = superheroes;
+
             var model = Repository.Instance.GetVillain(id);
             return View(model);
         }
@@ -43,6 +46,11 @@ namespace P19_Web_Dynamic_06_MVC.Controllers
                 catch (NotFoundException)
                 {
                     TempData["MessageText"] = "Villain not found!";
+                    TempData["MessageSeverity"] = MessageSeverity.Error;
+                }
+                catch(InvalidInputException)
+                {
+                    TempData["MessageText"] = "Villain with invalid fields!";
                     TempData["MessageSeverity"] = MessageSeverity.Error;
                 }
                 return RedirectToAction(nameof(Index));
@@ -74,14 +82,8 @@ namespace P19_Web_Dynamic_06_MVC.Controllers
             {
                 TempData["MessageText"] = "Villain not found!";
                 TempData["MessageSeverity"] = MessageSeverity.Error;
-                return RedirectToAction(nameof(VillainNotFound));
+                return RedirectToAction(nameof(Index));
             }
-        }
-
-        [HttpGet]
-        public IActionResult VillainNotFound()
-        {
-            return View();
         }
     }
 }

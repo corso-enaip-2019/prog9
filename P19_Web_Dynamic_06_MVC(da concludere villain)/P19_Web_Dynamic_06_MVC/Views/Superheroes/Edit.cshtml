@@ -1,0 +1,50 @@
+﻿@model SuperheroEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit superhero</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="HeroName">hero name:</label>
+        <input asp-for="HeroName" class="form-control" />
+        <span asp-validation-for="HeroName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SecretName">secret name:</label>
+        <input asp-for="SecretName" class="form-control" />
+        <span asp-validation-for="SecretName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Strength">strength:</label>
+        <input asp-for="Strength" class="form-control" type="number" />
+        <span asp-validation-for="Strength"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AssetsValue">assets value:</label>
+        <input asp-for="AssetsValue" class="form-control" type="number" step="0.01" />
+        <span asp-validation-for="AssetsValue"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CanFly">can fly:</label>
+        <input asp-for="CanFly" type="checkbox" />
+        <span asp-validation-for="CanFly"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Powers">powers:</label>
+        <textarea asp-for="Powers" class="form-control"></textarea>
+        <span asp-validation-for="Powers"></span>
+    </div>
+
+    <div class="form-group">
+        <a asp-controller="Superheroes" asp-action="Index" class="btn btn-default">Undo</a>
+        <input type="submit" class="btn btn-primary" value="Save"/>
+    </div>
+</form>
