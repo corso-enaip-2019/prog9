@@ -15,7 +15,7 @@ namespace P19_Web_Dynamic_06_MVC.Controllers
         {
             if (_firstTime)
             {
-                ViewData["InitialMessage"] = "Welcome to the list of all superheroes!";
+                ViewData["InitialMessage"] = "Welcome to the superheroes management!";
                 _firstTime = false;
             }
             var vms = Repository.Instance.GetAllSuperheroes();
@@ -25,6 +25,9 @@ namespace P19_Web_Dynamic_06_MVC.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var villains = Repository.Instance.GetAllVillainNames();
+            ViewData["villains"] = villains;
+
             var model = Repository.Instance.GetSuperhero(id);
             return View(model);
         }

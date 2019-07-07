@@ -138,6 +138,8 @@ namespace P19_Web_Dynamic_06_MVC.DataAccess
                 CanFly = model.CanFly,
                 Powers = model.Powers,
                 Strength = model.Strength,
+                Enemies = model.Enemies.Select(x => x.Id)
+                .ToList()
             };
 
             return viewModel;
@@ -189,6 +191,8 @@ namespace P19_Web_Dynamic_06_MVC.DataAccess
             old.Powers = viewModel.Powers;
             old.SecretName = viewModel.SecretName;
             old.Strength = viewModel.Strength;
+            old.Enemies = _villains.Where(x => viewModel.Enemies.Contains(x.Id))
+                .ToList();
         }
 
         public void RemoveSuperhero(int id)
@@ -208,6 +212,31 @@ namespace P19_Web_Dynamic_06_MVC.DataAccess
                 v.Nemesis = null;
         }
 
+        public List<SelectRowViewModel> GetAllSuperheroNames()
+        {
+            var viewModels = _superheroes
+                .Select(x => new SelectRowViewModel
+                    {
+                        Id = x.Id,
+                        Name = x.HeroName,
+                    })
+                .ToList();
+
+            return viewModels;
+        }
+
+        public List<SelectRowViewModel> GetAllVillainNames()
+        {
+            var viewModels = _villains
+                .Select(x => new SelectRowViewModel
+                {
+                    Id = x.Id,
+                    Name = x.VillainName,
+                })
+                .ToList();
+
+            return viewModels;
+        }
 
         public List<VillainRowViewModel> GetAllVillains()
         {
@@ -224,14 +253,27 @@ namespace P19_Web_Dynamic_06_MVC.DataAccess
                 .ToList();
         }
 
-        public Villain GetVillain(int id)
+        public VillainEditViewModel GetVillain(int id)
         {
             var model = _villains.FirstOrDefault(x => x.Id == id);
 
             if (model == null)
                 throw new NotFoundException("villain not found");
 
-            return model;
+            var viewModel = new VillainEditViewModel
+            {
+                Id = model.Id,
+                SecretName = model.SecretName,
+                VillainName = model.VillainName,
+                KilledPeople = model.KilledPeople,
+                KidnappedPeople = model.KidnappedPeople,
+                FirstDate = model.FirstDate,
+                Strength = model.Strength,
+                Characteristics = model.Characteristics,
+                NemesisId = model.Nemesis == null ? 0 : model.Nemesis.Id,
+            };
+
+            return viewModel;
         }
 
         public int InsertVillain(VillainEditViewModel viewModel)
@@ -281,6 +323,9 @@ namespace P19_Web_Dynamic_06_MVC.DataAccess
             if (viewModel == null)
                 throw new InvalidInputException("null input");
 
+            if (viewModel.NemesisId != 0 && !_superheroes.Any(x => x.Id == viewModel.NemesisId))
+                throw new InvalidInputException("nemesisId not valid");
+
             var old = _villains.FirstOrDefault(x => x.Id == viewModel.Id);
 
             if (old == null)
@@ -292,7 +337,32 @@ namespace P19_Web_Dynamic_06_MVC.DataAccess
             old.Strength = viewModel.Strength;
             old.VillainName = viewModel.VillainName;
             
-           
+            if (viewModel.NemesisId != 0)
+            {
+                if (old.Nemesis == null)
+                {
+                    var superhero = _superheroes.First(x => x.Id == viewModel.NemesisId);
+                    old.Nemesis = superhero;
+                    superhero.Enemies.Add(old);
+                }
+                else if(old.Nemesis.Id != viewModel.NemesisId)
+                {
+                    var superhero = _superheroes.First(x => x.Id == viewModel.NemesisId);
+                    old.Nemesis = superhero;
+                    superhero.Enemies.Add(old);
+                    var oldSuperhero = _superheroes.First(x => x.Id == old.Nemesis.Id);
+                    oldSuperhero.Enemies.Remove(old);
+                }
+            }
+            else
+            {
+                if (old.Nemesis != null)
+                {
+                    var oldSuperhero = _superheroes.First(x => x.Id == old.Nemesis.Id);
+                    oldSuperhero.Enemies.Remove(old);
+                    old.Nemesis = null;
+                }
+            }
         }
 
         public void RemoveVillain(int id)

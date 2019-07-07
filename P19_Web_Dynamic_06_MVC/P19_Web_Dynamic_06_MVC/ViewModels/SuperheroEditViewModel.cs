@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using P19_Web_Dynamic_06_MVC.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace P19_Web_Dynamic_06_MVC.ViewModels
 {
@@ -20,5 +22,7 @@ namespace P19_Web_Dynamic_06_MVC.ViewModels
         public bool CanFly { get; set; }
 
         public string Powers { get; set; }
+
+        public List<int> Enemies { get; set; }
     }
 }
