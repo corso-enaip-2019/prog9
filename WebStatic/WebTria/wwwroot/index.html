@@ -84,22 +84,22 @@
         //  }
 
 
-        const PLAYER1 = "O";
-        const PLAYER2 = "X";
+        const CPU = "O";
+        const PLAYER = "X";
+
         var gameOver = true;
         var grid;
+
         function initializeGrid() {
             var mainGrid = document.getElementById('grid');
             var tBody = document.createElement("tbody")
             for(let i = 0; i < 9; i++) {
                  var td = document.createElement('td');
-                 td.classList.add('cell')
-                 var div = document.createElement('div');
-                 div.className = "box";
-                 div.id =`box${i}`;
-                 td.onclick = function() {playerMove(i)}
-                 td.appendChild(div);
-                 tBody.appendChild(td)
+                 td.classList.add('player')
+                 td.classList.add('cpu')
+                 td.className = `box${i}`;
+                 td.onclick = function() {playerMove(`box${i}`)}
+                 tBody.appendChild(td);
              }
              mainGrid.appendChild(tBody);
              return grid;
@@ -113,24 +113,26 @@
             do {
                 var choice = getRandomInt();
             }
-            while(grid[choice] != 0)
-            grid[choice] = 1;
-            drawInBox(choice,1);
+            while(grid[choice] != " ")
+            grid[choice] = CPU;
+            drawInBox(choice,CPU);
             checkWinner();
         }
 
-        function playerMove(position){
+        function playerMove(pos){
         if (gameOver)
             return;
-        if (grid[position] != 0)
-            return;
-        grid[position] = 2;
-        drawInBox(position, 2);
-        checkWinner();
+        if (grid[pos] != " " && grid[pos] != CPU){
+            grid[pos] = PLAYER;
+            drawInBox(pos, PLAYER);
+            checkWinner();
             
-        if (!gameOver)
+        if (!gameOver){
             compMove();
         }
+        }
+        
+        
 
         function drawInBox(position, player){
         document.getElementById(`box${position}`).innerText = display(player);
@@ -141,13 +143,6 @@
         gameOver = true;
         }
 
-        function display(number){
-        if (number == 1)
-            return "O";
-        if (number == 2)
-            return "X";
-        return " ";
-        }
 
         function trioPresent(grid) {
             
