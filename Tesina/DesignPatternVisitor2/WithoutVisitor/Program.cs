@@ -10,6 +10,8 @@ namespace WithoutVisitor
     {
         static void Main(string[] args)
         {
+            //Si vuole creare un supermarket dove si vendono due tipi di oggetti: quelli venduti a peso e quelli venduti a pezzi.
+
             List<ItemSoldInPieces> soldInPieces = new List<ItemSoldInPieces>();
 
             var sp1 = new ItemSoldInPieces("C01", "cereali", 2.20D, 2);

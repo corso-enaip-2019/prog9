@@ -10,6 +10,8 @@ namespace DesignPatternVisitor2
     {
         static void Main(string[] args)
         {
+            //Si vuole creare un supermarket dove si vendono due tipi di oggetti: quelli venduti a peso e quelli venduti a pezzi.
+
             List<IVisitable> elements = new List<IVisitable>();
 
             var p1 = new ItemSoldInPieces("C01", "cereali", 2.20D, 2);
