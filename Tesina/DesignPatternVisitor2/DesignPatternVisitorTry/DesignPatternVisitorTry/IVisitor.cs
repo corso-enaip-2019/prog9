@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatternVisitor2
+namespace DesignPatternVisitorTry
 {
     public interface IVisitor
     {
-        void visit(ItemSoldInWeight visitable);
-        void visit(ItemSoldInPieces visitable);
+        void visit(IVisitable visitable);
     }
 }

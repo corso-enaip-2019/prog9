@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WithoutVisitor
+namespace DesignPatternVisitorTry
 {
     class Program
     {
@@ -26,22 +26,27 @@ namespace WithoutVisitor
 
             double TotalCost = 0;
 
-            foreach (var item in soldInPieces)
-            {
-                TotalCost += ItemSoldInPieces.CalculateInPieces(item);
-            }
+            var ProductPieces = new ShoppingVisitor();
+            var ProductWeight = new ShoppingVisitor();
+
             foreach (var item in soldInWeight)
             {
-                TotalCost += ItemSoldInWeight.CalculateInWeight(item);
+                ProductWeight.visit(item);
+                TotalCost += ProductWeight.GetProduct();
+            }
+            foreach (var item in soldInPieces)
+            {
+                ProductPieces.visit(item);
+                TotalCost += ProductPieces.GetProduct();
             }
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            Console.WriteLine("Codice: {0} | Descrizione: {1}| Prezzo unitario: {2:C}| Pezzi: {3}",sp1.Code, sp1.Description, sp1.UnitPrice, sp1.NumberOfPieces);
+            Console.WriteLine("Codice: {0} | Descrizione: {1}| Prezzo unitario: {2:C}| Pezzi: {3}", sp1.Code, sp1.Description, sp1.UnitPrice, sp1.NumberOfPieces);
             Console.WriteLine("Codice: {0} | Descrizione: {1}| Prezzo unitario: {2:C}| Pezzi:{3}", sp2.Code, sp2.Description, sp2.UnitPrice, sp2.NumberOfPieces);
-            Console.WriteLine("Codice: {0} | Descrizione: {1}| Prezzo unitario al kg: {2:C}| Kili: {3}",sw1.Code, sw1.Description, sw1.UnitPrice, sw1.Weight);
+            Console.WriteLine("Codice: {0} | Descrizione: {1}| Prezzo unitario al kg: {2:C}| Kili: {3}", sw1.Code, sw1.Description, sw1.UnitPrice, sw1.Weight);
 
             Console.WriteLine();
-            Console.WriteLine("TotalCost = {0:C} " , TotalCost );
+            Console.WriteLine("TotalCost = {0:C} ", TotalCost);
             Console.Read();
         }
     }

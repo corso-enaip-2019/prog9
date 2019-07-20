@@ -8,16 +8,17 @@ namespace WithoutVisitor
 {
     public abstract class Element
     {
-        public abstract string Code { get; set; }
-        public abstract string Description { get; set; }
+        internal abstract string Code { get; set; }
+        internal abstract string Description { get; set; }
+        internal abstract double UnitPrice { get; set; }
     }
 
     public class ItemSoldInWeight : Element
     {
-        public override string Code { get; set; }
-        public override string Description { get; set; }
+        internal override string Code { get; set; }
+        internal override string Description { get; set; }
+        internal override double UnitPrice { get; set; }
 
-        public double UnitPrice { get; set; }
         public double Weight { get; set; }
 
         public ItemSoldInWeight(string code, string description, double unitPrice, double weight)
@@ -27,15 +28,22 @@ namespace WithoutVisitor
             UnitPrice = unitPrice;
             Weight = weight;
         }
+
+        public static double CalculateInWeight(ItemSoldInWeight soldInWeight)
+        {
+            double total = 0.0D;
+            total += soldInWeight.UnitPrice * soldInWeight.Weight;
+            return total;
+        }
     }
 
     public class ItemSoldInPieces : Element
     {
-        public override string Code { get; set; }
-        public override string Description { get; set; }
+        internal override string Code { get; set; }
+        internal override string Description { get; set; }
+        internal override double UnitPrice { get; set; }
 
-        public double UnitPrice;
-        public int NumberOfPieces;
+        public int NumberOfPieces { get; set; }
 
         public ItemSoldInPieces(string code, string description, double unitPrice, int numberOfPieces)
         {
@@ -43,6 +51,13 @@ namespace WithoutVisitor
             Description = description;
             UnitPrice = unitPrice;
             NumberOfPieces = numberOfPieces;
+        }
+
+        public static double CalculateInPieces(ItemSoldInPieces soldInPieces)
+        {
+            double total = 0.0D;
+            total += soldInPieces.UnitPrice * soldInPieces.NumberOfPieces;
+            return total;
         }
     }
 }

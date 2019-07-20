@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatternVisitor2
+namespace DesignPatternVisitorTry
 {
-    //Implementiamo il ConcreteVisitor del pattern imnplementando l'interfaccia IVisitor
     public class ShoppingVisitor : IVisitor
     {
         private double product;
@@ -21,22 +20,26 @@ namespace DesignPatternVisitor2
             return product;
         }
 
-        public void visit(ItemSoldInPieces visitable)
+        public void visit(IVisitable visitable)
         {
             if (visitable == null)
             {
                 throw new ArgumentException("Null visitable!");
             }
-            product = visitable.NumberOfPieces * visitable.UnitPrice;
-        }
-
-        public void visit(ItemSoldInWeight visitable)
-        {
-            if (visitable == null)
+            if (visitable is ItemSoldInWeight)
             {
-                throw new ArgumentException("Null visitable!");
+                var tn = (ItemSoldInWeight)visitable;
+                product = tn.UnitPrice * tn.Weight;
             }
-            product = visitable.Weight * visitable.UnitPrice;
+            else if (visitable is ItemSoldInPieces)
+            {
+                var tm = (ItemSoldInPieces)visitable;
+                product = tm.UnitPrice * tm.NumberOfPieces;
+            }
+            else
+            {
+                throw new ArgumentException("Unknown visitable type!");
+            }
         }
     }
 }

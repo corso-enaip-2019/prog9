@@ -4,55 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatternVisitor2
+namespace DesignPatternVisitorTry
 {
-    //Definizione della classe astratta che rappresenterà ogni prodotto
     public abstract class Element : IVisitable
     {
         internal abstract string Code { get; set; }
         internal abstract string Description { get; set; }
-        internal abstract double UnitPrice { get ;set; }
-
-        public abstract void Accept(IVisitor visitor);
+        internal abstract double UnitPrice { get; set; }
     }
 
-    //Definiamo la classe astratta per ogni ConcreteElement
-    public class ItemSoldInWeight : Element
+    public class ItemSoldInWeight : Element, IVisitable
     {
         internal override string Code { get; set; }
         internal override string Description { get; set; }
         internal override double UnitPrice { get; set; }
 
-        internal double Weight { get; set; }
+        public double Weight { get; set; }
 
-        public override void Accept (IVisitor visitor)
-        {
-            visitor.visit(this);
-        }
-
-        public ItemSoldInWeight(string code,string description,double unitPrice,double weight)
+        public ItemSoldInWeight(string code, string description, double unitPrice, double weight)
         {
             Code = code;
             Description = description;
             UnitPrice = unitPrice;
             Weight = weight;
         }
-    }
+    }   
 
-    public class ItemSoldInPieces : Element
+    public class ItemSoldInPieces : Element, IVisitable
     {
         internal override string Code { get; set; }
         internal override string Description { get; set; }
         internal override double UnitPrice { get; set; }
 
-        internal int NumberOfPieces { get; set; }
+        public int NumberOfPieces { get; set; }
 
-        public override void Accept(IVisitor visitor)
-        {
-            visitor.visit(this);
-        }
-
-        public ItemSoldInPieces(string code,string description,double unitPrice,int numberOfPieces)
+        public ItemSoldInPieces(string code, string description, double unitPrice, int numberOfPieces)
         {
             Code = code;
             Description = description;
