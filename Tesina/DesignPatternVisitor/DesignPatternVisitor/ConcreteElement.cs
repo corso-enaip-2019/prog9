@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatternVisitor2
+namespace DesignPatternVisitor
 {
     //Definizione della classe astratta che rappresenterà ogni prodotto
     public abstract class Element : IVisitable

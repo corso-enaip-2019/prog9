@@ -10,34 +10,23 @@ namespace DesignPatternVisitorTry
     {
         static void Main(string[] args)
         {
-            List<ItemSoldInPieces> soldInPieces = new List<ItemSoldInPieces>();
+            List<Element> elements = new List<Element>();
 
             var sp1 = new ItemSoldInPieces("C01", "cereali", 2.20D, 2);
             var sp2 = new ItemSoldInPieces("C02", "Quaderno", 1.10D, 1);
-
-            soldInPieces.Add(sp1);
-            soldInPieces.Add(sp2);
-
-            List<ItemSoldInWeight> soldInWeight = new List<ItemSoldInWeight>();
-
             var sw1 = new ItemSoldInWeight("C03", "Mele", 2.50D, 2.0D);
+            
+            elements.Add(sp1);
+            elements.Add(sp2);
+            elements.Add(sw1);
 
-            soldInWeight.Add(sw1);
-
+            var ProductVisitor = new ShoppingVisitor();
             double TotalCost = 0;
 
-            var ProductPieces = new ShoppingVisitor();
-            var ProductWeight = new ShoppingVisitor();
-
-            foreach (var item in soldInWeight)
+            foreach (var item in elements)
             {
-                ProductWeight.visit(item);
-                TotalCost += ProductWeight.GetProduct();
-            }
-            foreach (var item in soldInPieces)
-            {
-                ProductPieces.visit(item);
-                TotalCost += ProductPieces.GetProduct();
+                ProductVisitor.visit(item);
+                TotalCost += ProductVisitor.GetProduct();
             }
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;

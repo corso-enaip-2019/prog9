@@ -28,13 +28,13 @@ namespace DesignPatternVisitorTry
             }
             if (visitable is ItemSoldInWeight)
             {
-                var tn = (ItemSoldInWeight)visitable;
-                product = tn.UnitPrice * tn.Weight;
+                var pw = (ItemSoldInWeight)visitable;
+                product = pw.UnitPrice * pw.Weight;
             }
             else if (visitable is ItemSoldInPieces)
             {
-                var tm = (ItemSoldInPieces)visitable;
-                product = tm.UnitPrice * tm.NumberOfPieces;
+                var pp = (ItemSoldInPieces)visitable;
+                product = pp.UnitPrice * pp.NumberOfPieces;
             }
             else
             {

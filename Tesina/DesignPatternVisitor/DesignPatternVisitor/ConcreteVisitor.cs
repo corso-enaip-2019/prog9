@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatternVisitor2
+namespace DesignPatternVisitor
 {
     //Implementiamo il ConcreteVisitor del pattern imnplementando l'interfaccia IVisitor
     public class ShoppingVisitor : IVisitor

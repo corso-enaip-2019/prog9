@@ -13,7 +13,7 @@ namespace DesignPatternVisitorTry
         internal abstract double UnitPrice { get; set; }
     }
 
-    public class ItemSoldInWeight : Element, IVisitable
+    public class ItemSoldInWeight : Element
     {
         internal override string Code { get; set; }
         internal override string Description { get; set; }
@@ -30,7 +30,7 @@ namespace DesignPatternVisitorTry
         }
     }   
 
-    public class ItemSoldInPieces : Element, IVisitable
+    public class ItemSoldInPieces : Element
     {
         internal override string Code { get; set; }
         internal override string Description { get; set; }

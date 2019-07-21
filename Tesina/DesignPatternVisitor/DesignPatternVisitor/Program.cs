@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatternVisitor2
+namespace DesignPatternVisitor
 {
     class Program
     {
@@ -41,5 +41,4 @@ namespace DesignPatternVisitor2
             Console.Read();
         }
     }
-
 }
