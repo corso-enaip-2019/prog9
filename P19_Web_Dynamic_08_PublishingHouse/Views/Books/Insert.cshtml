@@ -1,0 +1,18 @@
+﻿@model BookInsertViewModel
+
+<div style="max-width: 500px; margin: 0 auto;">
+    <h1>Aggiungi Libro</h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label class="control-label" asp-for="Title">Titolo</label>
+            <input class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title"></span>
+        </div>
+        
+        <div class="form-group">
+            <a asp-controller="Books" asp-action="Index" class="btn btn-default">Annulla</a>
+            <input type="submit" class="btn btn-primary" value="Salva" />
+        </div>
+    </form>
+</div>
